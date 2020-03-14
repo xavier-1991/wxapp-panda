@@ -1,0 +1,62 @@
+<template lang="pug">
+    view
+        view(class="top re")
+            view(class="info df ai-center")
+                image(class="avatar" src="../../static/images/usercenter/head.png")
+                view(class="ml30")
+                    view(class="fs36 cor_f") 联营区域：合肥/六安/九江
+                    view(class="mt10 cor_f fs28") ID:12345
+            view(class="money ai-center")
+                view
+                    view(class="yue df fs30") 
+                        view(class="cor_9") 我的余额
+                        view(class="cor_0 fw") ￥913.8900
+                    view(class="yue df fs30 mt20") 
+                        view(class="cor_9") 当月可提现余额
+                        view(class="cor_0 fw") ￥91344.8900
+                view(class="tx") 提现
+        view(class="list")
+            view(class="df ai-center")
+                image(class="icon" src="../../static/images/usercenter/icon_bill.png")
+                view(class="listRight bb1 df ai-center jcsb")
+                    view(class="listText") 提现账单
+                    view(class="df ai-center")
+                        image(class="arrow" src="../../static/images/usercenter/icon_arrow.png")
+            view(class="df ai-center")
+                image(class="icon" src="../../static/images/usercenter/icon_me_in.png")
+                view(class="listRight bb1 df ai-center jcsb")
+                    view(class="listText") 修改登陆密码
+                    view(class="df ai-center")
+                        image(class="arrow" src="../../static/images/usercenter/icon_arrow.png")
+            view(class="df ai-center")
+                image(class="icon" src="../../static/images/usercenter/icon_me_money.png")
+                view(class="listRight bb1 df ai-center jcsb")
+                    view(class="listText") 修改提现密码
+                    view(class="df ai-center")
+                        image(class="arrow" src="../../static/images/usercenter/icon_arrow.png") 
+            view(class="df ai-center")
+                image(class="icon" src="../../static/images/usercenter/icon_me_service.png")
+                view(class="listRight bb1 df ai-center jcsb")
+                    view(class="listText") 拨打客服电话
+                    view(class="df ai-center")
+                        view(class="cor_999 fs32") 0987-87765540
+                        image(class="arrow" src="../../static/images/usercenter/icon_arrow.png") 
+            view(class="df ai-center")
+                image(class="icon" src="../../static/images/usercenter/icon_out.png")
+                view(class="listRight df ai-center jcsb")
+                    view(class="listText") 退出当前账号
+                    view(class="df ai-center")
+                        image(class="arrow" src="../../static/images/usercenter/icon_arrow.png")
+</template>
+<script>
+export default {
+    data(){
+        return {
+
+        }
+    }
+}
+</script>
+<style lang="stylus">
+    @import "./usercenter.styl"
+</style>

@@ -115,15 +115,7 @@
                             input(id="date2" readonly class="timeInp form-control" placeholder="结束时间" type="text")
             view(class="btnWrap df")
                 view(class="reset cor_red") 重置
-                view(class="confirm cor_f") 确定
-        view(class="tabbar")
-            view(class="tabbarItem")
-                image(src="../../static/images/tabbar/home_01.png")
-                view(class="fs20 cor_red tac") 首页
-            view(class="tabbarItem")
-                image(src="../../static/images/tabbar/user_02.png")
-                view(class="fs20 cor_999 tac") 我的
-               
+                view(class="confirm cor_f") 确定         
 </template>
 
 <script>

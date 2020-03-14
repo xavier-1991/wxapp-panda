@@ -24,6 +24,18 @@
             "style": {
                 "navigationBarTitleText": "修改登录密码"
             }
+        },
+        {
+            "path": "pages/goods-list/goods-list",
+            "style": {
+                "navigationBarTitleText": "商品列表"
+            }
+        },
+        {
+            "path": "pages/usercenter/usercenter",
+            "style": {
+                "navigationBarTitleText": "个人中心"
+            }
         }
     ],
     "globalStyle": {
@@ -31,5 +43,23 @@
         "navigationBarTitleText": "uni-app",
         "navigationBarBackgroundColor": "#F8F8F8",
         "backgroundColor": "#F8F8F8"
+    },
+    "tabBar": {
+        "color": "#787878",
+        "selectedColor": "#e93421",
+        "list": [
+            {
+                "pagePath": "pages/index/index",
+                "text": "首页",
+                "iconPath": "./static/images/tabbar/home_02.png",
+                "selectedIconPath": "static/images/tabbar/home_01.png"
+            },
+            {
+                "pagePath": "pages/usercenter/usercenter",
+                "text": "个人中心",
+                "iconPath": "./static/images/tabbar/user_02.png",
+                "selectedIconPath": "static/images/tabbar/user_01.png"
+            }
+        ]
     }
 }
