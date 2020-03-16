@@ -117,6 +117,25 @@ function showApiError(msg, callback) {
     });
 
 }
+function showConfirm(title, confirmText,msg, succ, fail) {
+    uni.showModal({
+        title: title || '提示',
+        content: msg,
+        confirmColor: '#FF5500',
+        confirmText: confirmText,
+        success: function (res) {
+            if (res.confirm) {
+                if (succ) {
+                    succ();
+                }
+            } else if (res.cancel) {
+                if (fail) {
+                    fail();
+                }
+            }
+        }
+    })
+}
 function showLoadingDialog(title, duration) {
     uni.showLoading({
         title: title || '加载中',
@@ -162,6 +181,7 @@ module.exports = {
     showModal,
     showApiError,
     showTopLoading,
+    showConfirm,
     hideTopLoading,
     hideTopLoadingStopRefresh,
     addZero,

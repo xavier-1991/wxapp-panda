@@ -16,32 +16,38 @@
                         view(class="cor_0 fw") ￥91344.8900
                 view(class="tx") 提现
         view(class="list")
-            view(class="df ai-center")
+            view(class="df ai-center" @click="toWithDrawBill")
                 image(class="icon" src="../../static/images/usercenter/icon_bill.png")
                 view(class="listRight bb1 df ai-center jcsb")
                     view(class="listText") 提现账单
                     view(class="df ai-center")
                         image(class="arrow" src="../../static/images/usercenter/icon_arrow.png")
-            view(class="df ai-center")
+            view(class="df ai-center" @click="toLoginPassWordEdit")
                 image(class="icon" src="../../static/images/usercenter/icon_me_in.png")
                 view(class="listRight bb1 df ai-center jcsb")
                     view(class="listText") 修改登陆密码
                     view(class="df ai-center")
                         image(class="arrow" src="../../static/images/usercenter/icon_arrow.png")
-            view(class="df ai-center")
+            view(class="df ai-center" @click="toWithdrawPassWordEdit")
                 image(class="icon" src="../../static/images/usercenter/icon_me_money.png")
                 view(class="listRight bb1 df ai-center jcsb")
                     view(class="listText") 修改提现密码
                     view(class="df ai-center")
-                        image(class="arrow" src="../../static/images/usercenter/icon_arrow.png") 
+                        image(class="arrow" src="../../static/images/usercenter/icon_arrow.png")
             view(class="df ai-center")
+                image(class="icon" src="../../static/images/usercenter/icon_card.png")
+                view(class="listRight bb1 df ai-center jcsb")
+                    view(class="listText") 设置银行卡
+                    view(class="df ai-center")
+                        image(class="arrow" src="../../static/images/usercenter/icon_arrow.png") 
+            view(class="df ai-center" @click="toCall")
                 image(class="icon" src="../../static/images/usercenter/icon_me_service.png")
                 view(class="listRight bb1 df ai-center jcsb")
                     view(class="listText") 拨打客服电话
                     view(class="df ai-center")
                         view(class="cor_999 fs32") 0987-87765540
                         image(class="arrow" src="../../static/images/usercenter/icon_arrow.png") 
-            view(class="df ai-center")
+            view(class="df ai-center" @click="toLoginOut")
                 image(class="icon" src="../../static/images/usercenter/icon_out.png")
                 view(class="listRight df ai-center jcsb")
                     view(class="listText") 退出当前账号
@@ -49,11 +55,36 @@
                         image(class="arrow" src="../../static/images/usercenter/icon_arrow.png")
 </template>
 <script>
+const util = require("../../utils/util");
+const urls = require("../../utils/urls");
+const http = require("../../utils/http");
 export default {
     data(){
         return {
 
         }
+    },
+    methods: {
+        toLoginOut(){
+            util.showConfirm('','退出登录','是否退出当前账号',()=>{
+
+            })
+        },
+        toCall(){
+            wx.makePhoneCall({
+                phoneNumber: '18110206066'
+            })
+        },
+        toLoginPassWordEdit(){
+            util.linkto('login-password-edit');
+        },
+        toWithdrawPassWordEdit(){
+            util.linkto('withdraw-password-edit');
+        },
+        toWithDrawBill(){
+            util.linkto('withdraw-bill')
+        }
+        
     }
 }
 </script>

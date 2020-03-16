@@ -3,14 +3,13 @@
         view(class="bb1 item df ai-center re")
             view(class="itemL") 当前密码:
             input(class="inp" placeholder="请输入当前密码" type="password")
-            view(class="code cor_red" @click="toLoginPasswordForgot") 忘记密码
+            view(class="code cor_red" @click="toWithdrawPasswordForgot") 忘记密码
         view(class="bb1 item df ai-center")
             view(class="itemL") 新密码:
-            input(class="inp" placeholder="请重新密码" type="password")
+            input(class="inp" placeholder="请输入6位纯数学" type="password")
         view(class="bb1 item df ai-center")
             view(class="itemL") 确认密码:
-            input(class="inp" placeholder="请再次输入密码" type="password")
-        view(class="fs24 cor_9 mt20") 6到16位字母和数字组成，区分大小写，不能有空格或是特殊符号  
+            input(class="inp" placeholder="请再次输入新密码" type="password")
         view(class="btn can-use") 确定
 </template>
 <script>
@@ -25,16 +24,15 @@ export default {
             newPassword:'',
             oldPassword:'',
             sec:60
-
         }
     },
-    methods: {
-        toLoginPasswordForgot(){
-            util.linkto('login-password-forgot');
-        }
-    },
+     methods: {
+        toWithdrawPasswordForgot(){
+            util.linkto('withdraw-password-forgot');
+        }   
+    }
 }
 </script>
 <style lang="stylus">
-    @import "./login-password-edit.styl"
+    @import "./withdraw-password-edit.styl"
 </style>

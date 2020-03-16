@@ -36,6 +36,30 @@
             "style": {
                 "navigationBarTitleText": "个人中心"
             }
+        },
+        {
+            "path": "pages/withdraw-password-edit/withdraw-password-edit",
+            "style": {
+                "navigationBarTitleText": "修改提现密码"
+            }
+        },
+        {
+            "path": "pages/withdraw-password-forgot/withdraw-password-forgot",
+            "style": {
+                "navigationBarTitleText": "忘记提现密码"
+            }
+        },
+        {
+            "path": "pages/withdraw-bill/withdraw-bill",
+            "style": {
+                "navigationBarTitleText": "提现账单"
+            }
+        },
+        {
+            "path": "pages/withdraw-bill-detail/withdraw-bill-detail",
+            "style": {
+                "navigationBarTitleText": "提现详情"
+            }
         }
     ],
     "globalStyle": {
