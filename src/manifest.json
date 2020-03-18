@@ -1,6 +1,6 @@
 {
     "name" : "login-template",
-    "appid" : "",
+    "appid" : "wxbe58edcac59855df",
     "description": "登录模板",
     "versionName": "1.0.0",
     "versionCode": "100",
@@ -35,7 +35,7 @@
     },
 	/* 小程序特有相关 */
     "mp-weixin": {
-		"appid": "",
+		"appid": "wxbe58edcac59855df",
 		"setting" : {
 			"urlCheck" : false
 		},

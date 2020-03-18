@@ -170,7 +170,15 @@ function toTop(duration) {
     })
 }
 function checkPhone(str) {
-    return str.match(/^1(3|4|5|6|7|8|9)\d{9}$/)
+    let reg = /^1(3|4|5|6|7|8|9)\d{9}$/;
+    return reg.test(str)
+}
+function checkPassword(str) {
+    console.log('11111111111')
+    console.log(str)
+    let reg = /^[0-9a-zA-Z]{6,16}$/;
+    console.log(reg.test(str))
+    return reg.test(str)
 }
 module.exports = {
     formatTime,
@@ -187,6 +195,7 @@ module.exports = {
     addZero,
     toTop,
     checkPhone,
+    checkPassword,
     showLoadingDialog,
     hideLoadingDialog
 

@@ -3,7 +3,7 @@
         {
             "path": "pages/index/index",
             "style": {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "潘德妈妈城市联营",
                 "enablePullDownRefresh": true
             }
         },
@@ -59,6 +59,12 @@
             "path": "pages/withdraw-bill-detail/withdraw-bill-detail",
             "style": {
                 "navigationBarTitleText": "提现详情"
+            }
+        },
+        {
+            "path": "pages/withdraw-apply/withdraw-apply",
+            "style": {
+                "navigationBarTitleText": "提现"
             }
         }
     ],

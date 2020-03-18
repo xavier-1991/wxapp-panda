@@ -1,18 +1,12 @@
 
-//const HOST = "10.10.10.15:8082/";
-const HOST = "parentmptest.chinayzyx.com/";
-const HTTPS = "http://";
+const HOST = "ly.pandamuying.com/";
+const HTTPS = "https://"; 
 const URL_API_BASE = HTTPS.concat(HOST);
 var urls = {
-    TOKEN: 'api/parent/loginCheck',
-    TOKEN_NEXT: 'api/parent/silentLogin',
-    GET_SMS_CODE: 'api/parent/getLoginSmsCode',
-    GET_COURSE_INFO: 'api/parent/getCourseInfo',
-    GET_CLEAR_COURSE_INFO: 'api/parent/getClearCourseInfo',
-    GET_TIME_TABLE: 'api/parent/getClassSchedule',
-    GET_NOTICE: 'api/parent/getNotices',
-    CHECK_MSG: 'api/parent/checkNotice',
-    SAVE_FORMID: 'api/parent/collectFormIds',
+    LOGIN: 'api/auth/login',
+    FORGOT_LOGIN_PASSWORD: 'api/auth/forget-password',
+    SEND_CODE: 'api/common/sent-verification-code'
+   
 };
 
 

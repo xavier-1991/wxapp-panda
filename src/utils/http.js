@@ -1,45 +1,12 @@
 
 const urls = require('./urls');
-const zx = require('./zx');
+const zx = require('./pd');
 const util = require('./util');
 
-const HTTP_METHODS = ["OPTIONS", "GET", "HEAD", "POST", "PUT", "DELETE", "TRACE", "CONNECT"];
+const HTTP_METHODS = ["OPTIONS", "GET", "HEAD", "POST", "PUT", "DELETE", "TRACE", "CONNECT","PATCH"];
 
 
-/**
- * 登录，用 promise 方式
- * @returns {Promise}
- */
-function loginRequest() {
-    let userInfo = zx.getUserInfo();
-    if (userInfo) {
-        //本地有token 返回token
-        return Promise.resolve(userInfo);
-    } else {
-            //获取 code
-            return uni.login().then(loginResult => {
-                if (loginResult[0]){
-                    return Promise.reject(loginResult[0]);
-                }
-                return Promise.resolve({ code: loginResult[1].code})
-            }).then(data => {
-            //去登录
-            let params = {
-                code: data.code
-            }
-            return realRequest(`${urls.URL_API_BASE}${urls.TOKEN_NEXT}`, "POST", params, getCommonHeader('POST'))
-                .then(result => {
-                    let userInfo = result;
-                    zx.storeUserInfo(userInfo);
-                    return Promise.resolve(userInfo);
-                }).catch(err => {
-                    return Promise.reject(err);
-                });
-        }).catch(err => {
-            return Promise.reject(err);
-        })
-    }
-}
+
 
 
 /**
@@ -92,15 +59,18 @@ function request(apiUrl, methodName, params = {}, withToken = true) {
  */
 function realRequest(apiUrl, methodName, params, header) {
     return uni.request({ url: apiUrl, method: methodName, data: params, header: header }).then(res => {
+        console.log('res',res);
         if (res[0]) {
             //请求出错，例如超时
             return Promise.reject(res[0]);
         }
         let result = res[1];
+        console.log('result', result);
+        // return;
         if (result.statusCode === 200) {
-            if (result.data.status === 1) {
+            if (result.data.error === 0) {
                 return Promise.resolve(result.data.data);
-            } else if (result.data.status === -4) {
+            } else if (result.data.error === 401) {
                 //token过期，或者授权后二次登录接口api/we/mini/getAuthorization报错
                 util.reLaunch('login');
                 return Promise.reject('ApiError');

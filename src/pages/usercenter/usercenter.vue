@@ -14,7 +14,7 @@
                     view(class="yue df fs30 mt20") 
                         view(class="cor_9") 当月可提现余额
                         view(class="cor_0 fw") ￥91344.8900
-                view(class="tx") 提现
+                view(class="tx" @click="toWithdraw") 提现
         view(class="list")
             view(class="df ai-center" @click="toWithDrawBill")
                 image(class="icon" src="../../static/images/usercenter/icon_bill.png")
@@ -82,7 +82,10 @@ export default {
             util.linkto('withdraw-password-edit');
         },
         toWithDrawBill(){
-            util.linkto('withdraw-bill')
+            util.linkto('withdraw-bill');
+        },
+        toWithdraw(){
+            util.linkto('withdraw-apply');
         }
         
     }
