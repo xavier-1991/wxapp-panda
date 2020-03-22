@@ -7,7 +7,7 @@
                 view(class="df ai-center")
                     image(class="labelImg" src="../../static/images/label_red.png")
                     view(class="cardTitleText") 总数据统计
-                view(class="df ai-center" id="filter")
+                view(class="df ai-center" @click="toShowFilter")
                     image(class="filterImg" src="../../static/images/icon_home_filter.png")
                     view(class="cor_9 fs28 ml5 fwb") 筛选
             view(class="cardMain df fw")
@@ -28,7 +28,7 @@
                 view(class="df ai-center")
                     image(class="labelImg" src="../../static/images/label_orange.png")
                     view(class="cardTitleText") 今日新增数据统计
-                view(class="df ai-center" id="filter")
+                view(class="df ai-center" @click="toShowFilter")
                     image(class="filterImg" src="../../static/images/icon_home_filter.png")
                     view(class="cor_9 fs28 ml5 fwb") 筛选
             view(class="cardMain df fw")
@@ -44,15 +44,15 @@
                 view(class="cardMainItem bt1")
                     view(class="fs38 cor_red") ￥1122.00
                     view(class="cardMainItemText") 分润额
-        view(id="listTitle" class="card mt20" style="border-radius: 10rpx 10rpx 0 0;")
+        view(id="listTitle" :class="{card:true,fixed}" style="border-radius: 10rpx 10rpx 0 0;")
             view(class="df ai-center jcsb cardTitle bb1 p25lr")
                 view(class="df ai-center")
                     image(class="labelImg" src="../../static/images/label_blue.png")
                     view(class="cardTitleText") 门店采购商品列表
-                view(class="df ai-center" id="filter")
+                view(class="df ai-center" @click="toShowFilter")
                     image(class="filterImg" src="../../static/images/icon_home_filter.png")
                     view(class="cor_9 fs28 ml5 fwb") 筛选
-        view(class="p25lr bk_f list" style="border-radius:0 0 10rpx 10rpx;")
+        view(v-for="item in 12" :key="index" class="p25lr bk_f list" style="border-radius:0 0 10rpx 10rpx;")
             view(class="title2 bb1") 法国mustela妙思乐婴儿洗发沐浴露2
             view(class="df jcsb ai-center" style="padding:23rpx 0;")
                 view(class="listItem line re")
@@ -70,7 +70,7 @@
         view(class="df ai-center jcc mt50")
             view(class="fs26 cor_666") 查看所有商品
             image(class="moreImg ml10" src="../../static/images/usercenter/icon_arrow.png")
-        view(class="filter" id="filterMain")
+        view(class="filter" id="filterMain" v-if="isShowFilter")
             view(class="p30lr" style="padding-bottom: 120rpx;")
                 view
                     view(class="fItem")
@@ -83,7 +83,7 @@
                         view(class="fItemL") 渠道
                         view(class="fItemR toShow")
                             view 展开全部
-                            image(class="arrow arrow_b" src="../../static/images/arrow_right.png")
+                            image(class="arrow arrow_t" src="../../static/images/arrow_right.png")
                     view(class="df fw fItemBox")
                         view 艺朝艺夕
                         view 艺朝艺夕
@@ -109,27 +109,80 @@
                         view(class="fItemL") 时间
                     view(class="df ai-center jcsb mt25")
                         view(class="df ai-center priceBox")
-                            input(id="date1" readonly class="timeInp form-control" placeholder="开始时间" type="text")
+                            input(@tap="chooseTime(0)" id="date1" :value="startTime" :disabled='true' class="timeInp form-control" placeholder="开始时间" type="text")
                         view(class="line2")
                         view(class="df ai-center priceBox")
-                            input(id="date2" readonly class="timeInp form-control" placeholder="结束时间" type="text")
+                            input(@tap="chooseTime(1)" id="date2" :value="endTime" :disabled='true' class="timeInp form-control" placeholder="结束时间" type="text")
             view(class="btnWrap df")
                 view(class="reset cor_red") 重置
-                view(class="confirm cor_f") 确定         
+                view(class="confirm cor_f") 确定  
+            yu-datetime-picker(ref="dateTime" startYear="2000" :value="currentTime" endYear="2035" :isAll="true" :current="false" @confirm="onConfirm")
 </template>
 
 <script>
 const util = require("../../utils/util");
 const urls = require("../../utils/urls");
 const http = require("../../utils/http");
-import "./index.styl";
+import yuDatetimePicker from "../../components/yu-datetime-picker/yu-datetime-picker.vue";
+import moment from "moment"
 export default {
     data() {
-        return {};
+        return {
+            t: 0,
+            fixed: false,
+            isShowFilter: false,
+            currentTime:moment().format('YYYY-MM-DD HH:mm:ss'),
+            timeType:0,
+            startTime:'',
+            endTime:''
+        };
     },
-    onLoad() {},
-    methods: {}
+    components: {
+        yuDatetimePicker
+    },
+    onLoad() {
+        const query = wx.createSelectorQuery();
+        query.select("#listTitle").boundingClientRect();
+        query.selectViewport().scrollOffset();
+        query.exec(res => {
+            this.t = res[0].top;
+        });
+    },
+    onPageScroll(ev) {
+        let st = ev.scrollTop;
+        if (st > this.t) {
+            this.fixed = true;
+        } else {
+            this.fixed = false;
+        }
+    },
+    methods: {
+        toShowFilter() {
+            this.isShowFilter = true;
+        },
+        toggleTab(item, index) {
+            this.$refs.dateTime.show();
+        },
+        onConfirm(val) {
+            console.log(val);
+            let sArr=val.selectArr;
+            let time=`${sArr[0]}-${sArr[1]}-${sArr[2]} ${sArr[3]}:${sArr[4]}`;
+            if(this.timeType==0){
+                this.startTime=time;
+            }else{
+                this.endTime=time;
+            }
+        },
+        chooseTime(type){
+            this.timeType=type;
+            console.log(this.timeType)
+            this.$refs.dateTime.show();
+        }
+
+    }
 };
 </script>
 
-<style lang="stylus"></style>
+<style lang="stylus">
+@import './index.styl'
+</style>
