@@ -118,7 +118,7 @@
             yu-datetime-picker(ref="dateTime" startYear="2000" :value="currentTime" endYear="2035" :isAll="true" :current="false" @confirm="onConfirm")
 </template>
 
-<script>
+</script>
 const util = require("../../utils/util");
 const urls = require("../../utils/urls");
 const http = require("../../utils/http");
