@@ -4,7 +4,7 @@
             view(class="fs60 cor_3") 登录
             image(src="../../static/images/head.png" style="width:100rpx;height:100rpx;")
         view(style="margin-top:34rpx;")
-            input(v-model="mobile" type="text" maxlength="11" placeholder="请输入手机号" class="inp")
+            input(v-model="mobile" type="number" maxlength="11" placeholder="请输入手机号" class="inp")
             input(v-model="password" type="password" placeholder="请输入密码" class="inp")
         view(class="df ai-center pt40")
             switch(color="#e93421" :checked="remerble" @change="changeRemerble")
@@ -52,6 +52,7 @@ export default {
                 util.showToast("请填写密码");
                 return;
             }
+            util.showLoadingDialog('正在登录');
             let params = { mobile: this.mobile, password: this.password };
             http.request(urls.LOGIN, "POST", params, false).then(result => {
                 pd.storeUserInfo(result.user);
@@ -60,6 +61,9 @@ export default {
                 }else{
                     pd.storeLoginInfo(false);
                 }
+                util.hideLoadingDialog();
+                util.reLaunch('index');
+
             });
         },
         toForgotPassword(){

@@ -174,10 +174,12 @@ function checkPhone(str) {
     return reg.test(str)
 }
 function checkPassword(str) {
-    console.log('11111111111')
-    console.log(str)
     let reg = /^[0-9a-zA-Z]{6,16}$/;
     console.log(reg.test(str))
+    return reg.test(str)
+}
+function checkPrice(str) {
+    let reg = /^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/; //最多两位小数的正实数
     return reg.test(str)
 }
 module.exports = {
@@ -196,6 +198,7 @@ module.exports = {
     toTop,
     checkPhone,
     checkPassword,
+    checkPrice,
     showLoadingDialog,
     hideLoadingDialog
 

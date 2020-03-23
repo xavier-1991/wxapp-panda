@@ -88,8 +88,8 @@ export default {
                 data => {
                     util.showToast('重置成功')
                     setTimeout(() => {
-                        
-                    }, 1500);
+                        uni.navigateBack();
+                    }, 1000);
                     
                 }
             );

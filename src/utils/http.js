@@ -1,14 +1,9 @@
 
 const urls = require('./urls');
-const zx = require('./pd');
+const pd = require('./pd');
 const util = require('./util');
 
 const HTTP_METHODS = ["OPTIONS", "GET", "HEAD", "POST", "PUT", "DELETE", "TRACE", "CONNECT","PATCH"];
-
-
-
-
-
 /**
  *
  * @param apiUrl 访问的 url
@@ -25,8 +20,11 @@ function request(apiUrl, methodName, params = {}, withToken = true) {
     let header = getCommonHeader(methodName) || {};
 
     if (withToken) {
-        return loginRequest().then(result => {
-            header['token'] = result.token;
+        let userInfo = pd.getUserInfo();
+        let token = userInfo ? userInfo.token:'';
+        let nowTime=Math.ceil(new Date().getTime()/1000);
+        if (userInfo && userInfo.token && nowTime < userInfo.tokenExpireTime){
+            header['Authorization'] = `Bearer ${userInfo.token}`;
             return realRequest(targetUrl, methodName, params, header).then(data => {
                 //这里重新返回一个promise 是防止在这里需要做一些公用的东西
 
@@ -34,9 +32,10 @@ function request(apiUrl, methodName, params = {}, withToken = true) {
             }).catch(err => {
                 return Promise.reject(err);
             })
-        }).catch(err => {
-            return Promise.reject(err);
-        })
+        }else{
+            util.reLaunch('login');
+            return Promise.reject('ApiError');
+        } 
     } else {
         return realRequest(targetUrl, methodName, params, header).then(data => {
             //这里重新返回一个promise 是防止在这里需要做一些公用的东西,否则直接 return realRequest(targetUrl, methodName, params, header);即可
@@ -59,13 +58,11 @@ function request(apiUrl, methodName, params = {}, withToken = true) {
  */
 function realRequest(apiUrl, methodName, params, header) {
     return uni.request({ url: apiUrl, method: methodName, data: params, header: header }).then(res => {
-        console.log('res',res);
         if (res[0]) {
             //请求出错，例如超时
             return Promise.reject(res[0]);
         }
         let result = res[1];
-        console.log('result', result);
         // return;
         if (result.statusCode === 200) {
             if (result.data.error === 0) {

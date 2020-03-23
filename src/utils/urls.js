@@ -5,7 +5,9 @@ const URL_API_BASE = HTTPS.concat(HOST);
 var urls = {
     LOGIN: 'api/auth/login',
     FORGOT_LOGIN_PASSWORD: 'api/auth/forget-password',
-    SEND_CODE: 'api/common/sent-verification-code'
+    SEND_CODE: 'api/common/sent-verification-code',
+    INDEX: 'api/index',
+    GOODS: 'api/index/goods'
    
 };
 
