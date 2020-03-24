@@ -8,8 +8,13 @@ function getLoginInfo() {
     return uni.getStorageSync('logininfo');
 }
 function storeLoginInfo(logininfo) {
-    console.log(logininfo);
     uni.setStorageSync('logininfo', logininfo);
+}
+function getCardInfo() {
+    return uni.getStorageSync('cardinfo');
+}
+function storeCardInfo(cardinfo) {
+    uni.setStorageSync('cardinfo', cardinfo);
 }
 function isLogin() {
     let userInfo = getUserInfo();
@@ -23,5 +28,7 @@ module.exports={
     storeUserInfo,
     getLoginInfo,
     storeLoginInfo,
+    getCardInfo,
+    storeCardInfo,
     isLogin
 }

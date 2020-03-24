@@ -7,10 +7,10 @@
                         view(class="df ai-center") 
                             view(class="bankName") {{item.bankName}}
                             view(class="default ml15" v-if="item.isDefault==1") 默认    
-                        image(class="edit" src="../../static/images/withdraw/edit.png") 
+                        image(@tap="editCard(item)" class="edit" src="../../static/images/withdraw/edit.png") 
                     view(class="p35lr num") {{item.formatBankCard}}
         view(class="p25lr mt60") 
-            view(class="df ai-center addCard") 
+            view(class="df ai-center addCard" @tap="addCard") 
                 image(class="addIcon ml20" src="../../static/images/withdraw/icon_add_gray.png") 
                 view(class="cor_6 fs34 ml5") 添加新的银行卡
 </template>
@@ -18,6 +18,7 @@
 const util = require("../../utils/util");
 const urls = require("../../utils/urls");
 const http = require("../../utils/http");
+const pd = require("../../utils/pd");
 export default {
     data(){
         return {
@@ -25,7 +26,7 @@ export default {
             list:[]
         }
     },
-    onLoad(){
+    onShow(){
         this.loadData()
     },
     methods: {
@@ -36,6 +37,13 @@ export default {
                 this.list=result.list;
                 util.hideLoadingDialog();
             });
+        },
+        addCard(){
+            util.linkto("bank-edit-add","type=add");
+        },
+        editCard(item){
+            pd.storeCardInfo(item);
+            util.linkto("bank-edit-add","type=edit");
         }
     }
 }

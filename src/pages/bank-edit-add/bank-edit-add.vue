@@ -1,8 +1,8 @@
 <template lang="pug">
     view
         view(class="p30lr") 
-            view(class="df jcfe")
-                view(class="cor_red fs34") 删除银行卡
+            view(class="df jcfe" v-if="type=='edit'")
+                view(class="cor_red fs34" @tap="toDelete") 删除银行卡
             view(class="bb1 item df ai-center") 
                 view(class="itemL") 真实姓名：
                 input(class="inp" v-model="params.trueName" placeholder="请输入您身份证上的姓名" type="text")
@@ -21,9 +21,14 @@
             view(class="btn can-use" style="margin-top: 3.1rem;" @tap="toSubmit") 提交
 </template>
 <script>
+const util = require("../../utils/util");
+const urls = require("../../utils/urls");
+const http = require("../../utils/http");
+const pd = require("../../utils/pd");
 export default {
     data(){
         return {
+            type:'',
             params:{
                 trueName:'',
                 bankCard:'',
@@ -33,26 +38,72 @@ export default {
             }
         }
     },
-    onLoad(){
-
+    onLoad(options){
+        this.type=options.type;
+        if(options.type=='edit'){
+            let cardinfo=pd.getCardInfo();
+            delete cardinfo.formatBankCard;
+            this.params=cardinfo;
+        }
     },
     methods: {
         toChange(e){
             this.params.isDefault=e.detail.value?1:0;
         },
         toSubmit(){
+            if(!this.params.trueName.trim()){
+                util.showToast('真实姓名不能为空');
+                return;
+            }
+            if(!this.params.bankCard.trim()){
+                util.showToast('银行卡号不能为空');
+                return;
+            }
+            if(!this.params.bankName.trim()){
+                util.showToast('银行名称不能为空');
+                return;
+            }
+            if(!this.params.bankSubBranch.trim()){
+                util.showToast('具体支行不能为空');
+                return;
+            }
+            let method="";
+            let url="";
+            if(this.type=='add'){
+                method="POST"
+                url=urls.BANK_CARD;
+            }else{
+                method="PUT"
+                url=`${urls.BANK_CARD}/${this.params.id}`;
+            }
             util.showLoadingDialog("正在提交");
-            http.request(urls.FORGOT_LOGIN_PASSWORD, "POST", this.params).then(
+            http.request(url, method, this.params).then(
                 data => {
-                    util.showToast('重置成功')
+                    if(this.type=='add'){
+                        util.showToast('添加成功')
+                    }else{
+                        util.showToast('编辑成功')
+                    }
                     setTimeout(() => {
                         util.hideLoadingDialog();
-                        util.reLaunch('login');
+                        uni.navigateBack();
                     }, 1000);
                     
                 }
             );
-        }   
+        },
+        toDelete(){
+             util.showConfirm('','删除','是否删除当前银行卡',()=>{
+                util.showLoadingDialog('正在删除');
+                http.request(`${urls.BANK_CARD}/${this.params.id}`, "DELETE", null).then(result => {
+                    util.showToast('删除成功');
+                    setTimeout(() => {
+                        util.hideLoadingDialog();
+                        uni.navigateBack();
+                    }, 1000);
+                });
+            })
+        }  
     }
 }
 </script>
