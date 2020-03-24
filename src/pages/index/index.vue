@@ -67,9 +67,10 @@
                 view(class="listItem re")
                     view(class="listNum cor_red") ￥{{item.cityAdminAmount}}
                     view(class="listText") 分润额
-        view(class="df ai-center jcc mt50")
-            view(class="fs26 cor_666") 查看所有商品
-            image(class="moreImg ml10" src="../../static/images/usercenter/icon_arrow.png")
+        view(class="df jcc mt50")
+            view(class="df jcc ai-center" @tap="toGoodsList")
+                view(class="fs26 cor_666") 查看所有商品
+                image(class="moreImg ml10" src="../../static/images/usercenter/icon_arrow.png")
         
         //- 筛选遮罩层 ******************************************************************
         view(class="filter" id="filterMain" v-if="isShowFilter")
@@ -118,12 +119,11 @@
             yu-datetime-picker(ref="dateTime" startYear="2000" :value="currentTime" endYear="2035" :isAll="true" :current="false" @confirm="onConfirm")
 </template>
 
-</script>
+<script>
 const util = require("../../utils/util");
 const urls = require("../../utils/urls");
 const http = require("../../utils/http");
 import yuDatetimePicker from "../../components/yu-datetime-picker/yu-datetime-picker.vue";
-import moment from "moment";
 export default {
     data() {
         return {
@@ -131,7 +131,7 @@ export default {
             t: 0,
             fixed: false,
             isShowFilter: false,
-            currentTime: moment().format("YYYY-MM-DD HH:mm:ss"),
+            currentTime: util.formatTime(new Date()),
             timeType: 0,
             sData:null,
             hideBrand:true,
@@ -144,6 +144,8 @@ export default {
                 startTime: "",
                 endTime: ""
             },
+            startTimeNum:"",  //用于比较时间
+            endTimeNum:"",    //用于比较时间
             brandInfo:[],
             channelInfo:[],
             cityInfo:[],
@@ -232,9 +234,6 @@ export default {
                 startTime: "",
                 endTime: ""
             }
-            this.isShowFilter=false;
-            this.loadIndex();
-            this.loadGoods();
         },
         toFilter(){
             if(this.params.minPrice && !util.checkPrice(this.params.minPrice)){
@@ -249,6 +248,10 @@ export default {
                 util.showToast('最高价格必须大于最低价格');
                 return;
             }
+             if(this.startTimeNum && this.endTimeNum && this.startTimeNum>=this.endTimeNum){
+                util.showToast('结束时间必须大于开始时间');
+                return;
+            }
             this.isShowFilter=false;
             this.loadIndex();
             this.loadGoods();
@@ -258,8 +261,10 @@ export default {
             let sArr = val.selectArr;
             let time = `${sArr[0]}-${sArr[1]}-${sArr[2]} ${sArr[3]}:${sArr[4]}`;
             if (this.timeType == 0) {
+                this.startTimeNum=sArr.join('')*1;
                 this.params.startTime = time;
             } else {
+                this.endTimeNum=sArr.join('')*1;
                 this.params.endTime = time;
             }
         },
@@ -267,6 +272,9 @@ export default {
             this.timeType = type;
             console.log(this.timeType);
             this.$refs.dateTime.show();
+        },
+        toGoodsList(){
+            util.linkto("goods-list");
         }
     }
 };

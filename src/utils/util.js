@@ -6,7 +6,7 @@ const formatTime = date => {
     const minute = date.getMinutes();
     const second = date.getSeconds();
 
-    return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+    return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 }
 
 const formatNumber = n => {
@@ -36,7 +36,7 @@ function linkto(pageName, params, success, need_login = false) {
     //tabBar 页面
     let nativeUrls = [
         "/pages/index/index",
-        "pages/notice/notice",
+        "/pages/usercenter/usercenter",
     ];
     if (nativeUrls.join('').indexOf(url) >= 0) {
         uni.switchTab({ url: url + (!params ? '' : `?${params}`) });
@@ -175,7 +175,10 @@ function checkPhone(str) {
 }
 function checkPassword(str) {
     let reg = /^[0-9a-zA-Z]{6,16}$/;
-    console.log(reg.test(str))
+    return reg.test(str)
+}
+function checkWithdrawPassword(str) {
+    let reg = /^[0-9]{6}$/;
     return reg.test(str)
 }
 function checkPrice(str) {
@@ -198,6 +201,7 @@ module.exports = {
     toTop,
     checkPhone,
     checkPassword,
+    checkWithdrawPassword,
     checkPrice,
     showLoadingDialog,
     hideLoadingDialog

@@ -5,9 +5,14 @@ const URL_API_BASE = HTTPS.concat(HOST);
 var urls = {
     LOGIN: 'api/auth/login',
     FORGOT_LOGIN_PASSWORD: 'api/auth/forget-password',
+    LOGIN_OUT: 'api/auth/logout',
+    CHANGE_PASSWORD: 'api/personal/change-password',
     SEND_CODE: 'api/common/sent-verification-code',
     INDEX: 'api/index',
-    GOODS: 'api/index/goods'
+    GOODS: 'api/index/goods',
+    USER_CENTER: 'api/personal',
+    CHANGE_PAY_PASSWORD: 'api/personal/change-pay-password',
+    FORGOT_PAY_PASSWORD: 'api/personal/forget-pay-password',
    
 };
 

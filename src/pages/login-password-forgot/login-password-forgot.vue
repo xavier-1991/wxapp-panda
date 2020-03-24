@@ -2,7 +2,7 @@
     view(style="padding:10rpx 32rpx 0;")
         view(class="bb1 item df ai-center re")
             view(class="itemL") 手机号:
-            input(class="inp" v-model="mobile" placeholder="请输入手机号" type="number" maxlength='13')
+            input(class="inp" v-model="mobile" placeholder="请输入手机号" type="number" maxlength='11')
             view(class="code cor_red" @click="toSendCode") {{codeStr}}
         view(class="bb1 item df ai-center")
             view(class="itemL") 验证码：
@@ -88,7 +88,8 @@ export default {
                 data => {
                     util.showToast('重置成功')
                     setTimeout(() => {
-                        uni.navigateBack();
+                        util.hideLoadingDialog();
+                        util.reLaunch('login');
                     }, 1000);
                     
                 }
