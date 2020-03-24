@@ -34,7 +34,7 @@
                     view(class="listText") 修改提现密码
                     view(class="df ai-center")
                         image(class="arrow" src="../../static/images/usercenter/icon_arrow.png")
-            view(class="df ai-center")
+            view(class="df ai-center" @tap="toBankList")
                 image(class="icon" src="../../static/images/usercenter/icon_card.png")
                 view(class="listRight bb1 df ai-center jcsb")
                     view(class="listText") 设置银行卡
@@ -102,6 +102,9 @@ export default {
         },
         toWithdraw(){
             util.linkto('withdraw-apply');
+        },
+        toBankList(){
+            util.linkto('bank-list')
         }
         
     }

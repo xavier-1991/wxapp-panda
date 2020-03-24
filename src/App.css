@@ -151,6 +151,9 @@ video {
 .mt40 {
     margin-top: 45rpx;
 }
+.mt60 {
+    margin-top: 60rpx;
+}
 .mt70 {
     margin-top: 70rpx;
 }
@@ -319,6 +322,9 @@ video {
 }
 .p30lr {
     padding: 0 30rpx;
+}
+.p35lr {
+    padding: 0 35rpx;
 }
 .p40lr {
     padding: 0 40rpx;

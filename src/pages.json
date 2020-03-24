@@ -66,6 +66,18 @@
             "style": {
                 "navigationBarTitleText": "提现"
             }
+        },
+        {
+            "path": "pages/bank-list/bank-list",
+            "style": {
+                "navigationBarTitleText": "管理银行卡"
+            }
+        },
+        {
+            "path": "pages/bank-edit-add/bank-edit-add",
+            "style": {
+                "navigationBarTitleText": ""
+            }
         }
     ],
     "globalStyle": {

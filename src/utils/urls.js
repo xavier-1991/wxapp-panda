@@ -13,6 +13,7 @@ var urls = {
     USER_CENTER: 'api/personal',
     CHANGE_PAY_PASSWORD: 'api/personal/change-pay-password',
     FORGOT_PAY_PASSWORD: 'api/personal/forget-pay-password',
+    BANK_CARD: 'api/card',
    
 };
 

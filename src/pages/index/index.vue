@@ -187,7 +187,6 @@ export default {
     methods: {
         loadIndex(){
             util.showLoadingDialog('正在加载');
-            util.showToast()
             http.request(urls.INDEX, "GET", this.params).then(result => {
                 this.sData=result;
                 this.hasData++;
