@@ -41,9 +41,16 @@ export default {
     onLoad(options){
         this.type=options.type;
         if(options.type=='edit'){
+            uni.setNavigationBarTitle({
+                title: '编辑银行卡'
+            });
             let cardinfo=pd.getCardInfo();
             delete cardinfo.formatBankCard;
             this.params=cardinfo;
+        }else{
+            uni.setNavigationBarTitle({
+                title: '添加银行卡'
+            });
         }
     },
     methods: {
