@@ -233,6 +233,8 @@ export default {
                 startTime: "",
                 endTime: ""
             }
+            this.startTimeNum="";
+            this.endTimeNum="";
         },
         toFilter(){
             if(this.params.minPrice && !util.checkPrice(this.params.minPrice)){

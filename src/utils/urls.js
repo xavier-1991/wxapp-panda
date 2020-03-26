@@ -16,6 +16,8 @@ var urls = {
     BANK_CARD: 'api/card',
     APPLY_LIST: 'api/apply',
     APPLY_DETAIL: 'api/apply/detail',
+    APPLY_PAGE: 'api/apply/page',
+    GET_BANK_NAME: 'api/common/bank-card-info',
    
 };
 

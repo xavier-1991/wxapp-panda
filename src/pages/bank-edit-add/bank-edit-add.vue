@@ -8,7 +8,7 @@
                 input(class="inp" v-model="params.trueName" placeholder="请输入您身份证上的姓名" type="text")
             view(class="bb1 item df ai-center") 
                 view(class="itemL") 银行卡号：
-                input(class="inp" v-model="params.bankCard" placeholder="请输入银行卡号" type="number")
+                input(class="inp" v-model="params.bankCard" placeholder="请输入银行卡号" type="number" @blur="getBankName")
             view(class="bb1 item df ai-center") 
                 view(class="itemL") 银行名称：
                 input(class="inp" v-model="params.bankName" placeholder="请输入需要绑定银行卡名称" type="text")
@@ -54,6 +54,18 @@ export default {
         }
     },
     methods: {
+        getBankName(){
+             http.request(urls.GET_BANK_NAME, 'GET',{bankCardNo:this.params.bankCard},false).then(
+                data => {
+                    console.log(data);
+                     if(data.validated) {
+                        this.$set(this.params,'bankName',data.bankName);
+                     }else{
+                        this.$set(this.params,'bankName','');
+                     }           
+                }
+            );
+        },
         toChange(e){
             this.params.isDefault=e.detail.value?1:0;
         },
