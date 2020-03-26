@@ -1,6 +1,6 @@
 <template lang="pug">
     view(class="wrap re" v-if="hasData")
-        view(style="display:none")
+        view
             image(src="../../static/images/banner.jpg" class="bk_bule bannerImg br10" alt="")
         view(class="card mt20")
             view(class="df ai-center jcsb cardTitle bb1 p25lr")
