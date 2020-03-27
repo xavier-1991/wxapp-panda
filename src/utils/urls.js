@@ -14,7 +14,7 @@ var urls = {
     CHANGE_PAY_PASSWORD: 'api/personal/change-pay-password',
     FORGOT_PAY_PASSWORD: 'api/personal/forget-pay-password',
     BANK_CARD: 'api/card',
-    APPLY_LIST: 'api/apply',
+    APPLY: 'api/apply',
     APPLY_DETAIL: 'api/apply/detail',
     APPLY_PAGE: 'api/apply/page',
     GET_BANK_NAME: 'api/common/bank-card-info',

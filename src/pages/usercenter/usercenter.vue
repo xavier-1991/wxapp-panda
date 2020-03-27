@@ -10,10 +10,10 @@
                 view
                     view(class="yue df fs30") 
                         view(class="cor_9") 我的余额
-                        view(class="cor_0 fw") ￥{{userInfo.canApplyAmount}}
+                        view(class="cor_0 fw") ￥{{userInfo.allMount}}
                     view(class="yue df fs30 mt20") 
                         view(class="cor_9") 当月可提现余额
-                        view(class="cor_0 fw") ￥{{userInfo.allMount}}
+                        view(class="cor_0 fw") ￥{{userInfo.canApplyAmount}}
                 view(class="tx" @click="toWithdraw") 提现
         view(class="list")
             view(class="df ai-center" @click="toWithDrawBill")
@@ -68,6 +68,9 @@ export default {
     onLoad(){
         this.loadData()
     },
+    onPullDownRefresh() {
+         this.loadData();
+    },
     methods: {
         loadData() {
             util.showLoadingDialog('正在加载');
@@ -75,7 +78,9 @@ export default {
                 this.hasData=true;
                 this.userInfo=result.user;
                 util.hideLoadingDialog();
-            });
+            }).finally(()=>{
+                 uni.stopPullDownRefresh();
+            })
         },
         toLoginOut(){
             util.showConfirm('','退出登录','是否退出当前账号',()=>{

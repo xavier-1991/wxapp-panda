@@ -31,49 +31,57 @@
                 view(class="mt5") 当月可提现余额是上月及之前未提现的余额之和，建议当月1-2日提现上月及之前的收益余额，最迟当月20日之前要提交提现申请，提交提现申请后，会在当月的25日把已提现金额转入已绑定的银行卡内，请各位联营企业家到时注意查收！另绑定银行卡时认真核实卡号及用户信息是否正确。
 
         view(class="pwd_fixed" id="pwd_fixed" v-if="isShowPayPassword")
-            view(class="pwd_box on")
+            view(class="pwd_box on" :style="{bottom:isipx?'68rpx':'0'}")
                 view(class="pwd_title")
                     text(class="pwd_close" @tap="closePayPassword")
                     text 请输入支付密码
                 view(class="pwd_input pwd_line")
-                    text(class="pwd_line on")
-                    text(class="pwd_line")
-                    text(class="pwd_line")
-                    text(class="pwd_line")
-                    text(class="pwd_line")
-                    text(class="pwd_line")
+                    text(v-for="(item,index) in 6" :key="index" :class="{pwd_line:true,on:passwordArr[index]}")
+                    //- text(class="pwd_line on")
+                    //- text(class="pwd_line")
+                    //- text(class="pwd_line")
+                    //- text(class="pwd_line")
+                    //- text(class="pwd_line")
                 view(class="pwd_forgot")
                     view(class="pwd_forgot_text" id="forgotPassword" @tap="toForgot") 忘记密码
                 view(class="pwd_num")
-                    text(class="pwd_btn pwd_line" data-item="1") 1
-                    text(class="pwd_btn pwd_line" data-item="2") 2
-                    text(class="pwd_btn pwd_line" data-item="3") 3
-                    text(class="pwd_btn pwd_line" data-item="4") 4
-                    text(class="pwd_btn pwd_line" data-item="5") 5
-                    text(class="pwd_btn pwd_line" data-item="6") 6
-                    text(class="pwd_btn pwd_line" data-item="7") 7
-                    text(class="pwd_btn pwd_line" data-item="8") 8
-                    text(class="pwd_btn pwd_line" data-item="9") 9
+                    text(class="pwd_btn pwd_line" data-item="1" v-for="(item,index) in 9" :key="index" @tap="inputNum(index+1)") {{index+1}}
+                    //- text(class="pwd_btn pwd_line" data-item="2") 2
+                    //- text(class="pwd_btn pwd_line" data-item="3") 3
+                    //- text(class="pwd_btn pwd_line" data-item="4") 4
+                    //- text(class="pwd_btn pwd_line" data-item="5") 5
+                    //- text(class="pwd_btn pwd_line" data-item="6") 6
+                    //- text(class="pwd_btn pwd_line" data-item="7") 7
+                    //- text(class="pwd_btn pwd_line" data-item="8") 8
+                    //- text(class="pwd_btn pwd_line" data-item="9") 9
                     text(class="pwd_btn pwd_line pwd_gray " data-item="")
-                    text(class="pwd_btn pwd_line" data-item="0") 0
-                    text(class="pwd_btn pwd_line pwd_gray pwd_delete" data-item="删除")
+                    text(class="pwd_btn pwd_line" data-item="0" @tap="inputNum(0)") 0
+                    text(class="pwd_btn pwd_line pwd_gray pwd_delete" data-item="删除" @tap="delPassword")
+            ipx(v-if="isipx")
 </template>
 <script>
 const util = require("../../utils/util");
 const urls = require("../../utils/urls");
 const http = require("../../utils/http");
 import './withdraw-apply.styl';
+import ipx from "../../components/template/ipx.vue";
 export default {
     data() {
         return {
+            isipx:false,
             hasData: false,
-            canApplyAmount: "",
+            canApplyAmount: 0,
             cardInfo: null,
             hasCard: 0,
-            applyAmount: "",
+            applyAmount: 0,
+            payPassword:"",
             onOff: true,
-            isShowPayPassword:false
+            isShowPayPassword:false,
+            passwordArr:[]
         };
+    },
+     components: {
+        ipx
     },
     onShow() {
         if (this.onOff) {
@@ -89,6 +97,7 @@ export default {
     },
     onLoad() {
         this.onOff = false;
+        this.isipx=this.$globalData.isipx;
         this.loadData();
     },
     methods: {
@@ -128,6 +137,32 @@ export default {
         },
         closePayPassword(){
             this.isShowPayPassword=false;
+        },
+        inputNum(num){
+            if(this.passwordArr.length<6){
+                this.passwordArr.push(String(num));
+            }
+            if(this.passwordArr.length==6){
+               this.payPassword=this.passwordArr.join(''); 
+               let params={
+                   cardId:this.cardInfo.id,
+                   applyAmount:this.applyAmount,
+                   payPassword:this.payPassword,
+               }
+                util.showLoadingDialog("正在提交");
+                http.request(urls.APPLY, "POST", params).then(result => {
+                    util.showToast('申请提现成功');
+                    this.isShowPayPassword=false;
+                    setTimeout(() => {
+                        util.redirectTo('withdraw-bill');
+                    }, 1000);
+                }).finally(()=>{
+                    this.passwordArr=[];
+                })
+            }
+        },
+        delPassword(){
+            this.passwordArr.pop();
         }
     }
 };

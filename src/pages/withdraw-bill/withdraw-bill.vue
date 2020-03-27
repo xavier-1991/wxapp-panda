@@ -58,19 +58,24 @@ export default {
     methods: {
         loadData(){
             let params={
-                status:this.status,
+                status:this.status*1,
                 page:this.page,
                 nowYear:this.nowYear
             };
             util.showLoadingDialog('正在加载');
-            http.request(urls.APPLY_LIST, "GET", params).then(result => {
-                this.hasData=true;
-                this.list=result.list;
-                this.applyArr=result.applyArr;
-                this.yearArr=result.yearArr;
-                this.nowYear=result.nowYear;
-                this.pageTotal=result.pageTotal;
-                this.count=result.count;
+            http.request(urls.APPLY, "GET", params).then(result => {
+                if(this.page==1){
+                    this.hasData=true;
+                    this.list=result.list;
+                    this.applyArr=result.applyArr;
+                    this.yearArr=result.yearArr;
+                    this.nowYear=result.nowYear;
+                    this.pageTotal=result.pageTotal;
+                    this.count=result.count;
+                }else{
+                    this.list=[...this.list,...result.list];
+                }
+                
                 util.hideLoadingDialog();
             });
         },
@@ -103,6 +108,7 @@ export default {
                 success: res => {
                     this.page=1;
                     this.nowYear=this.yearArr[res.tapIndex];
+                    this.loadData();
                 }
             });
         }

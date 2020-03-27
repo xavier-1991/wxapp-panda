@@ -67,16 +67,7 @@ function reLaunch(pageName, params) {
 
 }
 function redirectTo(pageName, params) {
-    let tmp = pageName.split('?');
-    let url = '';
-    nativeUrl = pageName = tmp[0];
-    params = params || (tmp.length >= 2) && tmp[1];
-    if (pageName.indexOf('/') >= 0) {
-        url = pageName;
-        //pageName = pageName.substr(pageName.lastIndexOf('/') + 1);
-    } else {
-        url = `/pages/${pageName}/${pageName}`;
-    }
+    let url = `/pages/${pageName}/${pageName}`;
     uni.redirectTo({ url: url + (!params ? '' : `?${params}`) });
 }
 function showToast(msg, callback, duration) {
