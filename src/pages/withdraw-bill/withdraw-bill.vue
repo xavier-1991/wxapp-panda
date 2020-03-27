@@ -3,7 +3,7 @@
         view(class="fillTitle p30lr bb1")
             view(class="df ai-center bb1 pb25 jcsb" id="timeFilter")
                 view(class="df ai-center" @tap="changeYears")
-                    view(class="fs40 cor_3 mr10") {{nowYear}}
+                    view(class="fs40 cor_3 mr10") {{year}}
                     view(class="arrow_wrap" v-if="yearArr.length>1")
                         view(class="arrow")
                 view(class="df ai-center" id="filter" @tap="toShowFilter")
@@ -44,8 +44,8 @@ export default {
             isShow:false,
             list:[],
             applyArr:[],
-            yearArr:['2020','2019'],
-            nowYear:'',
+            yearArr:[],
+            year:'',
             pageTotal:0,
             count:0,
             page:1,
@@ -60,7 +60,7 @@ export default {
             let params={
                 status:this.status*1,
                 page:this.page,
-                nowYear:this.nowYear
+                year:this.year
             };
             util.showLoadingDialog('正在加载');
             http.request(urls.APPLY, "GET", params).then(result => {
@@ -69,7 +69,7 @@ export default {
                     this.list=result.list;
                     this.applyArr=result.applyArr;
                     this.yearArr=result.yearArr;
-                    this.nowYear=result.nowYear;
+                    this.year=this.year?this.year:result.nowYear;
                     this.pageTotal=result.pageTotal;
                     this.count=result.count;
                 }else{
@@ -103,11 +103,14 @@ export default {
             this.isShow = false;
         },
         changeYears(){
+            if(this.yearArr.length<2){
+                return;
+            }
             uni.showActionSheet({
                 itemList: this.yearArr,
                 success: res => {
                     this.page=1;
-                    this.nowYear=this.yearArr[res.tapIndex];
+                    this.year=this.yearArr[res.tapIndex];
                     this.loadData();
                 }
             });

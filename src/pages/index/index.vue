@@ -184,6 +184,10 @@ export default {
             
         }
     },
+    onPullDownRefresh() {
+        this.loadIndex();
+        this.loadGoods();
+    },
     methods: {
         loadIndex(){
             util.showLoadingDialog('正在加载');
@@ -203,6 +207,8 @@ export default {
                this.pageTotal=result.pageTotal;
                this.hasData++;
                
+            }).finally(()=>{
+                 uni.stopPullDownRefresh();
             });
         },
         toggleBrand(){

@@ -73,7 +73,7 @@ export default {
             canApplyAmount: 0,
             cardInfo: null,
             hasCard: 0,
-            applyAmount: 0,
+            applyAmount: "",
             payPassword:"",
             onOff: true,
             isShowPayPassword:false,
