@@ -2,7 +2,10 @@
     view(class="wrap re" v-if="hasData")
         view
             image(src="../../static/images/banner.jpg" class="bk_bule bannerImg br10" alt="")
-        view(class="card mt20")
+        view(class="city-nav df fw")
+            view(class="city-tag" v-for="(item,index) in cityInfo" :key="index" :data-cityid="item.cityId" :class="{currType:item.cityId==params.cityId}" @tap="chooseCity") {{item.cityName}}
+            view(class="city-tag" :data-cityid="0" :class="{currType:item.cityId==params.cityId}" @tap="chooseCity") 全部
+        view(class="card")
             view(class="df ai-center jcsb cardTitle bb1 p25lr")
                 view(class="df ai-center")
                     image(class="labelImg" src="../../static/images/label_red.png")
@@ -52,34 +55,37 @@
                 view(class="df ai-center" @click="toShowFilter")
                     image(class="filterImg" src="../../static/images/icon_home_filter.png")
                     view(class="cor_9 fs28 ml5 fwb") 筛选
-        view(v-for="item in list" :key="index" class="p25lr bk_f list" style="border-radius:0 0 10rpx 10rpx;")
-            view(class="title2 bb1") {{item.goodsName}}
-            view(class="df jcsb ai-center" style="padding:23rpx 0;")
-                view(class="listItem line re")
-                    view(class="listNum") ￥{{item.goodsPrice}}
-                    view(class="listText") 采购价
-                view(class="listItem line re")
-                    view(class="listNum") {{item.goodsNum}}
-                    view(class="listText") 数量
-                view(class="listItem line re")
-                    view(class="listNum") {{item.brandProfit}}
-                    view(class="listText") 毛利率
-                view(class="listItem re")
-                    view(class="listNum cor_red") ￥{{item.cityAdminAmount}}
-                    view(class="listText") 分润额
+        view(v-for="(item,index) in list" :key="index" class="p25lr bk_f list" :style="{marginTop:item.isDisplay&&index>0?'15rpx':0}")
+            view(class="title2 bb1 df jcsb" v-if="item.isDisplay")
+                view(class="fs24 cor_9") {{item.date}}
+                view(class="fs24 cor_9") 共分润：￥{{item.todayProfitAmount}}
+            view(v-for="(goodItem,goodIndex) in item.goods" :key="goodIndex")
+                view(class="title2 bb1") {{goodItem.goodsName}}
+                view(class="df jcsb ai-center bb1" style="padding:23rpx 0;")
+                    view(class="listItem line re")
+                        view(class="listNum") ￥{{goodItem.goodsPrice}}
+                        view(class="listText") 采购价
+                    view(class="listItem line re")
+                        view(class="listNum") {{goodItem.goodsNum}}
+                        view(class="listText") 数量
+                    view(class="listItem line re")
+                        view(class="listNum") {{goodItem.brandProfit}}
+                        view(class="listText") 毛利率
+                    view(class="listItem re")
+                        view(class="listNum cor_red") ￥{{goodItem.cityAdminAmount}}
+                        view(class="listText") 分润额
         view(class="df jcc mt50")
             view(class="df jcc ai-center" @tap="toGoodsList")
                 view(class="fs26 cor_666") 查看所有商品
                 image(class="moreImg ml10" src="../../static/images/usercenter/icon_arrow.png")
-        
         //- 筛选遮罩层 ******************************************************************
         view(class="filter" id="filterMain" v-if="isShowFilter")
             view(class="p30lr" style="padding-bottom: 120rpx;")
-                view
-                    view(class="fItem")
-                        view(class="fItemL") 区域
-                    view(class="df fw fItemBox")
-                        view(v-for="item in cityInfo" :key="index" :data-cityid="item.cityId" :class="{currType:item.cityId==params.cityId}" @tap="chooseCity") {{item.cityName}}
+                //- view
+                //-     view(class="fItem")
+                //-         view(class="fItemL") 区域
+                //-     view(class="df fw fItemBox")
+                //-         view(v-for="item in cityInfo" :key="index" :data-cityid="item.cityId" :class="{currType:item.cityId==params.cityId}" @tap="chooseCity") {{item.cityName}}
                 view
                     view(class="fItem")
                         view(class="fItemL") 渠道
@@ -198,7 +204,7 @@ export default {
             });
         },
         loadGoods(){
-            http.request(urls.GOODS, "GET", this.params).then(result => {
+            http.request(urls.GOODS, "GET", {...this.params,page:1}).then(result => {
                this.brandInfo=result.brandInfo;
                this.cityInfo=result.cityInfo;
                this.channelInfo=result.channelInfo;
@@ -215,7 +221,13 @@ export default {
             this.hideBrand=!this.hideBrand;
         },
         chooseCity(e){
-            this.params.cityId=e.currentTarget.dataset.cityid;
+            if(e.currentTarget.dataset.cityid===0){
+                this.params.cityId='';
+            }else{
+                this.params.cityId=e.currentTarget.dataset.cityid;
+            }
+            this.loadIndex();
+            this.loadGoods();
         },
         chooseChannel(e){
             this.params.channelId=e.currentTarget.dataset.channelid;
@@ -230,8 +242,9 @@ export default {
             this.$refs.dateTime.show();
         },
         reSet(){
+            let cityId=this.params.cityId;
             this.params={
-                cityId:"",
+                cityId:cityId,
                 channelId:"",
                 brandId:"",
                 minPrice:"",
@@ -239,6 +252,7 @@ export default {
                 startTime: "",
                 endTime: ""
             }
+            //- this.cityId=cityId;
             this.startTimeNum="";
             this.endTimeNum="";
         },

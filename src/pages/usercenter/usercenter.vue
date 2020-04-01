@@ -14,6 +14,9 @@
                     view(class="yue df fs30 mt20") 
                         view(class="cor_9") 当月可提现余额
                         view(class="cor_0 fw") ￥{{userInfo.canApplyAmount}}
+                    view(class="yue df fs30 mt20") 
+                        view(class="cor_9") 已成功提现金额
+                        view(class="cor_0 fw") ￥{{userInfo.historyApplyAmount}}
                 view(class="tx" @click="toWithdraw") 提现
         view(class="list")
             view(class="df ai-center" @click="toWithDrawBill")

@@ -1,5 +1,5 @@
 <template lang="pug">
-    view
+    view(v-if="hasData")
         view(id="listTitle" class="card fixed" style="border-radius: 10rpx 10rpx 0 0;")
             view(class="df ai-center jcsb cardTitle bb1 p25lr")
                 view(class="df ai-center")
@@ -9,21 +9,25 @@
                     image(class="filterImg" src="../../static/images/icon_home_filter.png")
                     view(class="cor_9 fs28 ml5 fwb") 筛选
         view(style="padding-top:100rpx;")
-            view(v-for="item in list" :key="index" class="p25lr bk_f list" style="border-radius:0 0 10rpx 10rpx;")
-                view(class="title2 bb1") {{item.goodsName}}
-                view(class="df jcsb ai-center" style="padding:23rpx 0;")
-                    view(class="listItem line re")
-                        view(class="listNum") ￥{{item.goodsPrice}}
-                        view(class="listText") 采购价
-                    view(class="listItem line re")
-                        view(class="listNum") {{item.goodsNum}}
-                        view(class="listText") 数量
-                    view(class="listItem line re")
-                        view(class="listNum") {{item.brandProfit}}
-                        view(class="listText") 毛利率
-                    view(class="listItem re")
-                        view(class="listNum cor_red") ￥{{item.cityAdminAmount}}
-                        view(class="listText") 分润额
+            view(v-for="(item,index) in list" :key="index" class="p25lr bk_f list" :style="{marginTop:item.isDisplay&&index>0?'15rpx':0}")
+                view(class="title2 bb1 df jcsb" v-if="item.isDisplay")
+                    view(class="fs24 cor_9") {{item.date}}
+                    view(class="fs24 cor_9") 共分润：￥{{item.todayProfitAmount}}
+                view(v-for="(goodItem,goodIndex) in item.goods" :key="goodIndex")
+                    view(class="title2 bb1") {{goodItem.goodsName}}
+                    view(class="df jcsb ai-center bb1" style="padding:23rpx 0;")
+                        view(class="listItem line re")
+                            view(class="listNum") ￥{{goodItem.goodsPrice}}
+                            view(class="listText") 采购价
+                        view(class="listItem line re")
+                            view(class="listNum") {{goodItem.goodsNum}}
+                            view(class="listText") 数量
+                        view(class="listItem line re")
+                            view(class="listNum") {{goodItem.brandProfit}}
+                            view(class="listText") 毛利率
+                        view(class="listItem re")
+                            view(class="listNum cor_red") ￥{{goodItem.cityAdminAmount}}
+                            view(class="listText") 分润额
         view(class="df jcc mt50")
             view(class="df jcc ai-center" v-if="params.page<pageTotal" @tap="lookMore")
                 view(class="fs26 cor_666") 查看更多商品
@@ -117,6 +121,14 @@ export default {
         ipx
     },
     onLoad() {
+        let pages = getCurrentPages();
+        let prevPage = pages[pages.length - 2];
+        this.params=prevPage.data.params;
+        this.params.page=1;
+        this.brandInfo=prevPage.data.brandInfo;
+        this.channelInfo=prevPage.data.channelInfo;
+        this.cityInfo=prevPage.data.cityInfo;
+
         this.isipx=this.$globalData.isipx;
         this.loadGoods()
     },
