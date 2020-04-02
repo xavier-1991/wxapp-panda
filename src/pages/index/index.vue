@@ -26,7 +26,7 @@
                 view(class="cardMainItem bt1")
                     view(class="fs38 cor_red") ￥{{sData.allProfitAmount}}
                     view(class="cardMainItemText") 分润额
-        view(class="card mt20")
+        view(class="card mt25")
             view(class="df ai-center jcsb cardTitle bb1 p25lr")
                 view(class="df ai-center")
                     image(class="labelImg" src="../../static/images/label_orange.png")
@@ -45,7 +45,7 @@
                     view(class="fs38 cor_red") ￥{{sData.todayProfitAmount}}
                     view(class="cardMainItemText") 分润额
         view(class="cor_333 fs30 fwb" style="padding:50rpx 0 20rpx;") 门店采购商品列表
-        view(v-for="(item,index) in list" :key="index" class="bk_f list" :style="{marginTop:item.isDisplay&&index>0?'15rpx':0}")
+        view(v-for="(item,index) in list" :key="index" class="bk_f list" :style="{marginTop:item.isDisplay&&index>0?'24rpx':0}")
             view(class="p25lr")
                 view(class="title2 df jcsb" v-if="item.isDisplay")
                     view(class="fs24 cor_9") {{item.date}}

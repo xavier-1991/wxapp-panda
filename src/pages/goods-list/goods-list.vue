@@ -9,7 +9,7 @@
                     image(class="filterImg" src="../../static/images/icon_home_filter.png")
                     view(class="cor_9 fs28 ml5 fwb") 筛选
         view(style="padding-top:100rpx;")
-            view(v-for="(item,index) in list" :key="index" class="bk_f list" :style="{marginTop:item.isDisplay&&index>0?'15rpx':0}")
+            view(v-for="(item,index) in list" :key="index" class="bk_f list" :style="{marginTop:item.isDisplay&&index>0?'24rpx':0}")
                 view(class="p25lr")
                     view(class="title2 df jcsb" v-if="item.isDisplay")
                         view(class="fs24 cor_9") {{item.date}}
