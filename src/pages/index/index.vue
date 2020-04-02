@@ -169,7 +169,6 @@ export default {
             util.showLoadingDialog('正在加载');
             http.request(urls.INDEX, "GET", this.params).then(result => {
                 this.sData=result;
-                util.hideLoadingDialog();
                 return Promise.resolve()
             }).then(()=>{
                 http.request(urls.GOODS, "GET", {...this.params,page:1}).then(result => {
@@ -179,6 +178,7 @@ export default {
                     this.count=result.count;
                     this.list=result.list;
                     this.pageTotal=result.pageTotal;
+                    util.hideLoadingDialog();
                     this.hasData=true;
                     return Promise.resolve()
                 });
