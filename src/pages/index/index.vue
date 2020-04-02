@@ -3,8 +3,8 @@
         view
             image(src="../../static/images/banner.jpg" class="bk_bule bannerImg br10" alt="")
         view(class="city-nav df fw")
-            view(class="city-tag" v-for="(item,index) in cityInfo" :key="index" :data-cityid="item.cityId" :class="{currType:item.cityId==params.cityId}" @tap="chooseCity") {{item.cityName}}
             view(class="city-tag" :data-cityid="0" :class="{currType:params.cityId===''}" @tap="chooseCity") 全部
+            view(class="city-tag" v-for="(item,index) in cityInfo" :key="index" :data-cityid="item.cityId" :class="{currType:item.cityId==params.cityId}" @tap="chooseCity") {{item.cityName}}
         view(class="card")
             view(class="df ai-center jcsb cardTitle bb1 p25lr")
                 view(class="df ai-center")
