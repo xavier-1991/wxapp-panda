@@ -7,7 +7,7 @@ export default {
         this.$globalData.windowHeight = uni.getSystemInfoSync().windowHeight; //低于该基础库提示更新微信 支持 录音，npm等
         this.build();
         this.isIpx();
-        this.checkVersion();
+        //this.checkVersion();
     },
     methods: {
         isIpx() {
@@ -30,17 +30,7 @@ export default {
                 updateManager.onCheckForUpdate(function(res) {
                     if (res.hasUpdate) {
                         updateManager.onUpdateReady(function() {
-                            // uni.showModal({
-                            //     title: "更新提示",
-                            //     content:
-                            //         "新版本已经准备好，是否重新打开小程序？",
-                            //     success: function(res) {
-                            //         if (res.confirm) {
-                                        // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
-                                        updateManager.applyUpdate();
-                            //         }
-                            //     }
-                            // });
+                            updateManager.applyUpdate();
                         });
                     }
                 });
