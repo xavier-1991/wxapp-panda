@@ -57,7 +57,6 @@ export default {
         getBankName(){
              http.request(urls.GET_BANK_NAME, 'GET',{bankCardNo:this.params.bankCard},false).then(
                 data => {
-                    console.log(data);
                      if(data.validated) {
                         this.$set(this.params,'bankName',data.bankName);
                      }else{

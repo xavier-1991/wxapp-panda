@@ -31,7 +31,6 @@ export default {
     },
     onLoad() {
         let loginInfo=pd.getLoginInfo();
-        console.log(loginInfo);
         if(loginInfo){
             this.mobile=loginInfo.mobile;
             this.password=loginInfo.password;

@@ -209,7 +209,6 @@ export default {
             this.loadGoods();
         },
         onConfirm(val) {
-            console.log(val);
             let sArr = val.selectArr;
             let time = `${sArr[0]}-${sArr[1]}-${sArr[2]} ${sArr[3]}:${sArr[4]}`;
             if (this.timeType == 0) {
@@ -222,7 +221,6 @@ export default {
         },
         chooseTime(type) {
             this.timeType = type;
-            console.log(this.timeType);
             this.$refs.dateTime.show();
         }
     }

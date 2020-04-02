@@ -92,7 +92,6 @@ export default {
             this.isShow = !this.isShow
         },
         clickTab(index){
-            console.log(index);
             this.status=index;
         },
         toReset(){

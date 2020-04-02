@@ -3,20 +3,20 @@
         view(class="top re")
             view(class="info df ai-center")
                 image(class="avatar" src="../../static/images/usercenter/head.png")
-                view(class="ml30")
-                    view(class="fs36 cor_f") 联营区域：{{userInfo.cityAdminInfo}}
+                view(class="ml30" style="width:535rpx;")
+                    view(class="fs36 cor_f textFlow2") 联营区域：{{userInfo.cityInfo}}
                     view(class="mt10 cor_f fs28") ID:{{userInfo.id}}
             view(class="money ai-center")
                 view
                     view(class="yue df fs30") 
                         view(class="cor_9") 我的余额
-                        view(class="cor_0 fw") ￥{{userInfo.allMount}}
+                        view(class="cor_0 fwb") ￥{{userInfo.allMount}}
                     view(class="yue df fs30 mt20") 
                         view(class="cor_9") 当月可提现余额
-                        view(class="cor_0 fw") ￥{{userInfo.canApplyAmount}}
+                        view(class="cor_0 fwb") ￥{{userInfo.canApplyAmount}}
                     view(class="yue df fs30 mt20") 
                         view(class="cor_9") 已成功提现金额
-                        view(class="cor_0 fw") ￥{{userInfo.historyApplyAmount}}
+                        view(class="cor_0 fwb") ￥{{userInfo.historyApplyAmount}}
                 view(class="tx" @click="toWithdraw") 提现
         view(class="list")
             view(class="df ai-center" @click="toWithDrawBill")

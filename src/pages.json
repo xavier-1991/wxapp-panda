@@ -1,6 +1,12 @@
 {
     "pages": [
         {
+            "path": "pages/action/action",
+            "style": {
+                "navigationBarTitleText": "潘德妈妈城市联营"
+            }
+        },
+        {
             "path": "pages/index/index",
             "style": {
                 "navigationBarTitleText": "潘德妈妈城市联营",
