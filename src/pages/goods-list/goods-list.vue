@@ -56,17 +56,17 @@
                             image(:class="{arrow:true,arrow_t:!hideBrand}" src="../../static/images/arrow_right.png")                     
                     view(:class="{df:true,fw:true,fItemBox:true,hiddenBrand:hideBrand}")
                         view(v-for="item in brandInfo" :key="index" :data-brandid="item.brandId" :class="{currType:item.brandId==params.brandId}" @tap="chooseBrand") {{item.brandName}}
-                view
-                    view(class="fItem")
-                        view(class="fItemL") 价格
-                    view(class="df ai-center jcsb mt25")
-                        view(class="df ai-center priceBox")
-                            view(class="fs38 cor_333 ml25") ￥
-                            input(class="priceInp" v-model="params.minPrice" placeholder="最低价格" type="text")
-                        view(class="line2")
-                        view(class="df ai-center priceBox")
-                            view(class="fs38 cor_333 ml25") ￥
-                            input(class="priceInp"  v-model="params.maxPrice" placeholder="最高价格" type="text")
+                //- view
+                //-     view(class="fItem")
+                //-         view(class="fItemL") 价格
+                //-     view(class="df ai-center jcsb mt25")
+                //-         view(class="df ai-center priceBox")
+                //-             view(class="fs38 cor_333 ml25") ￥
+                //-             input(class="priceInp" v-model="params.minPrice" placeholder="最低价格" type="text")
+                //-         view(class="line2")
+                //-         view(class="df ai-center priceBox")
+                //-             view(class="fs38 cor_333 ml25") ￥
+                //-             input(class="priceInp"  v-model="params.maxPrice" placeholder="最高价格" type="text")
                 view
                     view(class="fItem")
                         view(class="fItemL") 时间
@@ -102,8 +102,8 @@ export default {
                 cityId: "",
                 channelId: "",
                 brandId: "",
-                minPrice: "",
-                maxPrice: "",
+                //- minPrice: "",
+                //- maxPrice: "",
                 startTime: "",
                 endTime: ""
             },
@@ -189,18 +189,14 @@ export default {
             this.endTimeNum="";
         },
         toFilter(){
-            if(this.params.minPrice && !util.checkPrice(this.params.minPrice)){
-                util.showToast('请输入正确格式的价格，最多两位小数');
-                return;
-            }
-            if(this.params.maxPrice && !util.checkPrice(this.params.maxPrice)){
-                util.showToast('请输入正确格式的价格，最多两位小数');
-                return;
-            }
-            if(this.params.minPrice && this.params.maxPrice && this.params.maxPrice*1<this.params.minPrice*1){
-                util.showToast('最高价格必须大于最低价格');
-                return;
-            }
+            //- if(this.params.maxPrice && !util.checkPrice(this.params.maxPrice)){
+            //-     util.showToast('请输入正确格式的价格，最多两位小数');
+            //-     return;
+            //- }
+            //- if(this.params.minPrice && this.params.maxPrice && this.params.maxPrice*1<this.params.minPrice*1){
+            //-     util.showToast('最高价格必须大于最低价格');
+            //-     return;
+            //- }
             if(this.startTimeNum && this.endTimeNum && this.startTimeNum>=this.endTimeNum){
                 util.showToast('结束时间必须大于开始时间');
                 return;
