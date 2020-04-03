@@ -2,11 +2,11 @@
     view(style="padding:10rpx 32rpx 0;")
         view(class="bb1 item df ai-center re")
             view(class="itemL") 当前密码:
-            input(class="inp" v-model="params.oldPassword" placeholder="请输入当前密码" type="password" maxlength="6")
-            view(class="code cor_red" @click="toWithdrawPasswordForgot") 忘记密码
+            input(class="inp" v-model="params.oldPassword" placeholder="请输入当前提现密码" type="password" maxlength="6")
+            view(class="code cor_red" @tap="toWithdrawPasswordForgot") 忘记密码
         view(class="bb1 item df ai-center")
             view(class="itemL") 新密码:
-            input(class="inp" v-model="params.password" placeholder="请输入6位纯数学" type="password" maxlength="6")
+            input(class="inp" v-model="params.password" placeholder="请输入6位纯数字" type="password" maxlength="6")
         view(class="bb1 item df ai-center")
             view(class="itemL") 确认密码:
             input(class="inp" v-model="params.confirmPassword" placeholder="请再次输入新密码" type="password" maxlength="6")

@@ -7,7 +7,7 @@ export default {
         this.$globalData.windowHeight = uni.getSystemInfoSync().windowHeight; //低于该基础库提示更新微信 支持 录音，npm等
         this.build();
         this.isIpx();
-        //this.checkVersion();
+        this.checkVersion();
     },
     methods: {
         isIpx() {

@@ -6,10 +6,10 @@
             view(class="code cor_red" @click="toLoginPasswordForgot") 忘记密码
         view(class="bb1 item df ai-center")
             view(class="itemL") 新密码:
-            input(class="inp" v-model="params.password" placeholder="请重新密码" type="password")
+            input(class="inp" v-model="params.password" placeholder="请输入新密码" type="password")
         view(class="bb1 item df ai-center")
             view(class="itemL") 确认密码:
-            input(class="inp" v-model="params.confirmPassword" placeholder="请再次输入密码" type="password")
+            input(class="inp" v-model="params.confirmPassword" placeholder="请再次输入新密码" type="password")
         view(class="fs24 cor_9 mt20") 6到16位字母和数字组成，区分大小写，不能有空格或是特殊符号  
         view(class="btn can-use" @tap="toSubmit") 确定
 </template>
