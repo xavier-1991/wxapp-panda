@@ -5,7 +5,7 @@
             view
                 image(class="ac-img" src="../../static/images/action.png")
             view(class="text1") 锁定联营城市
-            view(class="text2") 收益数据实时掌控
+            view(class="text2") 联营城市的各项数据统计及商品收益提现明细数据展示
             view(class="ac-btn" @tap="toEnter") 立即进入
         //- 首页
         view(class="wrap re" v-if="hasData")
